@@ -1,0 +1,7 @@
+customkinter
+matplotlib
+pandas
+numpy
+yfinance
+requests
+feedparser
