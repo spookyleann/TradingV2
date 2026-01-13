@@ -1,12 +1,18 @@
 import yfinance as yf
-import pandas as pd
 
 def get_market_data(symbol, interval, period):
-    data = yf.download(
+    df = yf.download(
         tickers=symbol,
         interval=interval,
         period=period,
-        progress=False
+        progress=False,
+        auto_adjust=True
     )
-    data.dropna(inplace=True)
-    return data
+
+    if df is None or df.empty:
+        raise RuntimeError(
+            f"No market data returned for symbol {symbol}. "
+            "Yahoo often blocks futures. Try QQQ or ^NDX."
+        )
+
+    return df
